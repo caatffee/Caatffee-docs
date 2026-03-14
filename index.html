@@ -5,235 +5,760 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caatffee Docs ☕</title>
   <meta name="description" content="Documentación oficial de Caatffee — El bot de gestión más adorable para tu servidor de Discord.">
-  <meta name="theme-color" content="#ffb6c1">
   <link rel="icon" href="https://i.postimg.cc/XJPC1Nxs/PERFIL.jpg">
-
-  <!-- Docsify theme -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --theme-color: #ffb6c1;
-      --theme-color-dark: #ff8fab;
-
-      /* Sidebar */
-      --sidebar-background: #100508;
-      --sidebar-nav-link-color: #c0adb1;
-      --sidebar-nav-link-color--active: #ffb6c1;
-      --sidebar-nav-link-border-color--active: #ffb6c1;
-      --sidebar-name-color: #ffb6c1;
-      --sidebar-nav-link-font-weight--active: 800;
-
-      /* Content */
-      --content-max-width: 900px;
-      --base-background-color: #100508;
-      --base-color: #fff5f7;
-      --link-color: #ffb6c1;
-      --link-color--hover: #ff8fab;
-
-      /* Code */
-      --code-background: rgba(255,182,193,0.1);
-      --code-border-radius: 8px;
-      --code-color: #ffb6c1;
-
-      /* Headings */
-      --heading-color: #fff5f7;
-      --heading-h1-border-color: rgba(255,182,193,0.3);
-
-      /* Blockquote */
-      --blockquote-background: rgba(255,182,193,0.08);
-      --blockquote-border-color: #ffb6c1;
-      --blockquote-color: #c0adb1;
-
-      /* Table */
-      --table-head-background: rgba(255,182,193,0.12);
-      --table-row-odd-background: rgba(255,182,193,0.04);
-      --table-cell-border-color: rgba(255,182,193,0.18);
-
-      /* Navbar */
-      --navbar-background: rgba(10,4,6,0.9);
-      --navbar-menu-link-color: #c0adb1;
-      --navbar-menu-link-color--active: #ffb6c1;
-
-      /* Cover */
-      --cover-background-color: #100508;
-      --cover-background-image: none;
-
-      /* Misc */
-      --border-radius-s: 8px;
-      --border-radius-m: 14px;
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --pink:#ffb6c1;--pink-deep:#ff8fab;--pink-dim:rgba(255,182,193,.12);
+      --bg:#100508;--surface:rgba(25,13,16,.9);--glass:rgba(18,10,12,.78);
+      --glass-border:rgba(255,182,193,.18);--text:#fff5f7;--muted:#c0adb1;
+      --sidebar-w:260px;
     }
+    html,body{height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);}
+    a{color:var(--pink);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    code{background:var(--pink-dim);color:var(--pink);padding:2px 8px;border-radius:6px;font-size:.9em;font-family:monospace;}
+    pre{background:rgba(255,182,193,.08);border:1px solid var(--glass-border);border-radius:12px;padding:16px;overflow-x:auto;margin:12px 0;}
+    pre code{background:none;color:#fff5f7;padding:0;}
+    table{width:100%;border-collapse:collapse;margin:16px 0;border-radius:12px;overflow:hidden;}
+    th{background:rgba(255,182,193,.15);padding:10px 14px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;text-align:left;}
+    td{padding:10px 14px;border-bottom:1px solid var(--glass-border);font-size:14px;color:var(--muted);}
+    td:first-child{color:var(--text);font-weight:700;}
+    tr:hover td{background:var(--pink-dim);}
+    blockquote{border-left:3px solid var(--pink);padding:10px 16px;background:var(--pink-dim);border-radius:0 10px 10px 0;margin:12px 0;color:var(--muted);}
+    h1{font-size:28px;font-weight:800;color:var(--text);margin-bottom:8px;padding-bottom:10px;border-bottom:1px solid var(--glass-border);}
+    h2{font-size:20px;font-weight:800;color:var(--pink);margin:28px 0 10px;}
+    h3{font-size:16px;font-weight:800;color:var(--text);margin:20px 0 8px;}
+    p{color:var(--muted);line-height:1.8;margin-bottom:10px;font-size:14px;}
+    ul,ol{padding-left:20px;margin-bottom:10px;}
+    li{color:var(--muted);font-size:14px;line-height:1.8;}
+    hr{border:none;border-top:1px solid var(--glass-border);margin:24px 0;}
 
-    /* Logo en sidebar */
-    .app-name-link img {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: 2px solid #ffb6c1;
-      box-shadow: 0 0 16px rgba(255,182,193,0.4);
-      vertical-align: middle;
-      margin-right: 8px;
-    }
+    /* Layout */
+    #app{display:flex;height:100vh;overflow:hidden;}
 
-    .app-name-link {
-      display: flex;
-      align-items: center;
-      font-family: 'Georgia', serif;
-      font-size: 20px;
-      font-weight: 800;
-      color: #ffb6c1 !important;
-      text-decoration: none !important;
+    /* Sidebar */
+    #sidebar{
+      width:var(--sidebar-w);flex-shrink:0;
+      background:rgba(8,3,5,.95);border-right:1px solid var(--glass-border);
+      display:flex;flex-direction:column;overflow:hidden;
+      transition:transform .3s;
     }
-
-    /* Sidebar mejorado */
-    .sidebar {
-      border-right: 1px solid rgba(255,182,193,0.15);
-      padding-top: 16px;
+    #sidebar-header{
+      padding:20px 16px 16px;border-bottom:1px solid var(--glass-border);
+      display:flex;align-items:center;gap:10px;
     }
-
-    .sidebar ul li a {
-      transition: color 0.2s, padding-left 0.2s;
-      border-radius: 8px;
-      padding: 5px 10px;
-    }
-
-    .sidebar ul li a:hover {
-      color: #ffb6c1!important;
-      background: rgba(255,182,193,0.08);
-    }
-
-    /* Botones de la portada */
-    section.cover .cover-main > p:last-child a {
-      border-radius: 50px !important;
-      padding: 12px 28px !important;
-      font-weight: 800 !important;
-      font-size: 15px !important;
-      transition: transform 0.25s, box-shadow 0.25s !important;
-    }
-
-    section.cover .cover-main > p:last-child a:first-child {
-      background: linear-gradient(135deg, #ffb6c1, #ff8fab) !important;
-      color: #1a0008 !important;
-      border: none !important;
-    }
-
-    section.cover .cover-main > p:last-child a:first-child:hover {
-      transform: translateY(-3px) !important;
-      box-shadow: 0 8px 28px rgba(255,143,171,0.5) !important;
-    }
-
-    section.cover .cover-main > p:last-child a:last-child {
-      border: 1.5px solid rgba(255,182,193,0.4) !important;
-      color: #fff5f7 !important;
-      background: transparent !important;
-    }
-
-    section.cover .cover-main > p:last-child a:last-child:hover {
-      border-color: #ffb6c1 !important;
-      transform: translateY(-3px) !important;
-    }
-
-    /* Cover page */
-    section.cover {
-      background: radial-gradient(ellipse at top, #1a0810 0%, #100508 60%) !important;
-    }
-
-    section.cover .cover-main h1 {
-      font-size: clamp(42px, 8vw, 80px) !important;
-      color: #fff5f7 !important;
-    }
-
-    section.cover .cover-main blockquote {
-      background: transparent !important;
-      border: none !important;
-      color: #c0adb1 !important;
-      font-size: 17px !important;
-    }
-
-    /* Tablas */
-    table {
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    /* Inline code */
-    p code, li code {
-      background: rgba(255,182,193,0.12) !important;
-      color: #ffb6c1 !important;
-      padding: 2px 8px !important;
-      border-radius: 6px !important;
-      font-size: 0.9em !important;
-    }
+    #sidebar-header img{width:38px;height:38px;border-radius:50%;border:2px solid var(--pink);box-shadow:0 0 14px rgba(255,182,193,.4);}
+    #sidebar-header span{font-size:18px;font-weight:900;color:var(--pink);}
 
     /* Search */
-    .search input {
-      background: rgba(255,182,193,0.08) !important;
-      border: 1px solid rgba(255,182,193,0.2) !important;
-      color: #fff5f7 !important;
-      border-radius: 50px !important;
+    #search-wrap{padding:12px 14px;border-bottom:1px solid var(--glass-border);}
+    #search{
+      width:100%;padding:8px 14px;background:var(--pink-dim);
+      border:1px solid var(--glass-border);border-radius:50px;
+      color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;
+      outline:none;transition:border-color .2s;
+    }
+    #search::placeholder{color:var(--muted);}
+    #search:focus{border-color:var(--pink);}
+
+    /* Nav */
+    #nav{flex:1;overflow-y:auto;padding:10px 0;}
+    #nav::-webkit-scrollbar{width:4px;}
+    #nav::-webkit-scrollbar-thumb{background:rgba(255,182,193,.2);border-radius:2px;}
+    .nav-section{padding:8px 16px 4px;font-size:10px;font-weight:800;color:rgba(255,182,193,.4);text-transform:uppercase;letter-spacing:2px;}
+    .nav-item{
+      display:block;padding:7px 16px;font-size:13px;font-weight:700;
+      color:var(--muted);cursor:pointer;transition:all .2s;border-left:2px solid transparent;
+    }
+    .nav-item:hover{color:var(--text);background:var(--pink-dim);}
+    .nav-item.active{color:var(--pink);border-left-color:var(--pink);background:var(--pink-dim);}
+    .nav-sep{height:1px;background:var(--glass-border);margin:8px 14px;}
+    .nav-link{display:block;padding:7px 16px;font-size:12px;font-weight:700;color:var(--muted);transition:color .2s;}
+    .nav-link:hover{color:var(--pink);text-decoration:none;}
+
+    /* Content */
+    #content{flex:1;overflow-y:auto;padding:40px 52px;}
+    #content::-webkit-scrollbar{width:6px;}
+    #content::-webkit-scrollbar-thumb{background:rgba(255,182,193,.2);border-radius:3px;}
+    .page{display:none;max-width:820px;}
+    .page.active{display:block;animation:fadeIn .3s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+    /* Lang toggle */
+    #lang-toggle{
+      margin:10px 14px;display:flex;gap:6px;
+    }
+    .lang-btn{
+      flex:1;padding:6px;border:1px solid var(--glass-border);border-radius:8px;
+      background:none;color:var(--muted);font-family:'Nunito',sans-serif;
+      font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;
+    }
+    .lang-btn.active{background:var(--pink-dim);border-color:var(--pink);color:var(--pink);}
+
+    /* Mobile */
+    #menu-btn{display:none;position:fixed;bottom:20px;right:20px;z-index:999;
+      width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--pink-deep));
+      border:none;color:#1a0008;font-size:22px;cursor:pointer;box-shadow:0 4px 18px rgba(255,143,171,.4);}
+    @media(max-width:768px){
+      #sidebar{position:fixed;z-index:100;height:100%;transform:translateX(-100%);}
+      #sidebar.open{transform:translateX(0);}
+      #content{padding:24px 20px;}
+      #menu-btn{display:flex;align-items:center;justify-content:center;}
     }
 
-    .search input::placeholder { color: #c0adb1 !important; }
-    .search input:focus {
-      border-color: #ffb6c1 !important;
-      box-shadow: 0 0 12px rgba(255,182,193,0.2) !important;
-    }
+    /* Badge */
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:800;text-transform:uppercase;}
+    .badge-mod{background:rgba(255,100,100,.18);color:#ff8080;}
+    .badge-admin{background:rgba(255,215,0,.18);color:#ffd700;}
+    .badge-all{background:rgba(100,200,150,.18);color:#7fffc4;}
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #100508; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,182,193,0.3); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #ffb6c1; }
+    /* Search results */
+    #search-results{position:absolute;left:14px;right:14px;top:100%;background:var(--surface);border:1px solid var(--glass-border);border-radius:12px;z-index:200;overflow:hidden;display:none;}
+    #search-wrap{position:relative;}
+    .search-result{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--text);border-bottom:1px solid var(--glass-border);}
+    .search-result:hover{background:var(--pink-dim);}
+    .search-result span{font-size:11px;color:var(--muted);display:block;}
   </style>
 </head>
 <body>
-  <div id="app">Cargando Caatffee Docs... ☕</div>
+<div id="app">
 
-  <script>
-    window.$docsify = {
-      name: '<img src="https://i.postimg.cc/XJPC1Nxs/PERFIL.jpg">Caatffee',
-      nameLink: '/',
-      repo: 'https://github.com/caatffee/Caatffee',
-      loadSidebar: '_sidebar.md',
-      loadNavbar: '_navbar.md',
-      coverpage: '_coverpage.md',
-      onlyCover: false,
-      auto2top: true,
-      maxLevel: 3,
-      subMaxLevel: 2,
-      search: {
-        placeholder: '🔍 Buscar...',
-        noData: '😔 Sin resultados',
-        depth: 3,
-      },
-      pagination: {
-        previousText: '← Anterior',
-        nextText: 'Siguiente →',
-        crossChapter: true,
-      },
-      copyCode: {
-        buttonText: 'Copiar',
-        errorText: 'Error',
-        successText: '✅ Copiado',
-      },
-      count: {
-        countable: true,
-        fontsize: '0.9em',
-        color: 'rgba(255,182,193,0.6)',
-        language: 'spanish',
-      },
-      plugins: [],
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <img src="https://i.postimg.cc/XJPC1Nxs/PERFIL.jpg" alt="Caatffee">
+      <span>Caatffee</span>
+    </div>
+    <div id="search-wrap">
+      <input id="search" type="text" placeholder="🔍 Buscar..." oninput="searchDocs(this.value)">
+      <div id="search-results"></div>
+    </div>
+    <div id="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('es',this)">🌍 Español</button>
+      <button class="lang-btn" onclick="setLang('en',this)">🌍 English</button>
+    </div>
+    <nav id="nav">
+      <!-- Se genera dinámicamente -->
+    </nav>
+    <div style="padding:14px 16px;border-top:1px solid var(--glass-border);">
+      <a class="nav-link" href="https://discord.gg/ecjgjx7yPd" target="_blank">💬 Servidor de Soporte</a>
+      <a class="nav-link" href="https://discord.com/oauth2/authorize?client_id=1475842620063485993&permissions=8&scope=bot%20applications.commands" target="_blank">✨ Añadir Bot</a>
+      <a class="nav-link" href="https://caatffee.github.io/Caatffee/" target="_blank">🌐 Web Oficial</a>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content">
+
+    <!-- ═══ INICIO ES ═══ -->
+    <div class="page active" id="p-inicio">
+      <h1>☕ Bienvenido a Caatffee Docs</h1>
+      <blockquote>El bot de gestión más adorable para tu servidor de Discord.</blockquote>
+      <p>➕ <a href="https://discord.com/oauth2/authorize?client_id=1475842620063485993&permissions=8&scope=bot%20applications.commands" target="_blank">Añadir Bot</a> · 💬 <a href="https://discord.gg/ecjgjx7yPd" target="_blank">Soporte</a> · 🌐 <a href="https://caatffee.github.io/Caatffee/" target="_blank">Web Oficial</a></p>
+      <hr>
+      <h2>📚 Índice</h2>
+      <table><thead><tr><th>Página</th><th>Descripción</th></tr></thead><tbody>
+        <tr><td><a href="#" onclick="showPage('p-guia')">🚀 Guía de Inicio</a></td><td>Cómo añadir y configurar Caatffee</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-comandos')">🤖 Comandos</a></td><td>Lista completa de comandos con ejemplos</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-moderacion')">🛡️ Moderación</a></td><td>Sistema de moderación y logs</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-bienvenida')">🌸 Bienvenida y Despedida</a></td><td>Configurar mensajes automáticos</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-panel')">🌐 Panel Web</a></td><td>Gestionar el servidor desde la web</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-premium')">⭐ Sistema Premium</a></td><td>Planes y beneficios</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-faq')">❓ FAQ</a></td><td>Preguntas frecuentes</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-changelog')">📋 Changelog</a></td><td>Historial de versiones</td></tr>
+      </tbody></table>
+      <hr>
+      <h2>⚡ Inicio Rápido</h2>
+      <pre><code>1. Añade el bot a tu servidor con el enlace de arriba
+2. Escribe /help en cualquier canal
+3. ¡Listo! Caatffee está activo</code></pre>
+      <h2>📌 Información del Bot</h2>
+      <table><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>
+        <tr><td>Nombre</td><td>Caatffee#7348</td></tr>
+        <tr><td>Versión</td><td>2.0</td></tr>
+        <tr><td>Prefijo</td><td>/ (slash commands)</td></tr>
+        <tr><td>Permiso requerido</td><td>Administrador</td></tr>
+        <tr><td>Librería</td><td>discord.js v14</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ═══ GUÍA DE INICIO ═══ -->
+    <div class="page" id="p-guia">
+      <h1>🚀 Guía de Inicio</h1>
+      <h2>1. Añadir el Bot</h2>
+      <p>Haz clic en el enlace para invitar a Caatffee a tu servidor:</p>
+      <p>➕ <a href="https://discord.com/oauth2/authorize?client_id=1475842620063485993&permissions=8&scope=bot%20applications.commands" target="_blank">Añadir Caatffee al servidor</a></p>
+      <blockquote>⚠️ Necesitas ser <strong>administrador</strong> del servidor para añadir el bot.</blockquote>
+      <h2>2. Permisos Necesarios</h2>
+      <table><thead><tr><th>Permiso</th><th>¿Para qué?</th></tr></thead><tbody>
+        <tr><td>Administrador</td><td>Gestionar canales, roles, miembros</td></tr>
+        <tr><td>Enviar mensajes</td><td>Responder comandos y enviar embeds</td></tr>
+        <tr><td>Insertar enlaces</td><td>Mostrar embeds con imágenes</td></tr>
+        <tr><td>Ver canal</td><td>Acceder a los canales del servidor</td></tr>
+      </tbody></table>
+      <h2>3. Primer Comando</h2>
+      <p>Una vez añadido, escribe en cualquier canal:</p>
+      <pre><code>/help</code></pre>
+      <h2>4. Configuración Básica Recomendada</h2>
+      <h3>🔔 Configurar Logs</h3>
+      <pre><code>/set-logs canal:#tu-canal-de-logs</code></pre>
+      <h3>🌸 Configurar Bienvenida</h3>
+      <pre><code>/set-welcome activar canal:#bienvenidas mensaje:¡Bienvenido/a a {servidor}, {usuario}!</code></pre>
+      <h3>👋 Configurar Despedida</h3>
+      <pre><code>/set-goodbye activar canal:#despedidas mensaje:Hasta luego, {usuario} 👋</code></pre>
+      <h2>5. Panel Web</h2>
+      <p>Gestiona tu servidor desde: <a href="https://caatffee.github.io/Caatffee/" target="_blank">caatffee.github.io/Caatffee</a></p>
+      <h2>6. Soporte</h2>
+      <p>💬 <a href="https://discord.gg/ecjgjx7yPd" target="_blank">Servidor de Soporte</a></p>
+    </div>
+
+    <!-- ═══ COMANDOS ═══ -->
+    <div class="page" id="p-comandos">
+      <h1>🤖 Comandos</h1>
+      <p><span class="badge badge-all">🟢 Todos</span> Cualquier miembro · <span class="badge badge-admin">🟡 Admin</span> Administrador · <span class="badge badge-mod">🔴 Mod</span> Moderador</p>
+      <h2>🛠️ Utilidad</h2>
+      <table><thead><tr><th>Comando</th><th>Permiso</th><th>Descripción</th></tr></thead><tbody>
+        <tr><td><code>/help</code></td><td><span class="badge badge-all">Todos</span></td><td>Muestra la guía del bot</td></tr>
+        <tr><td><code>/update</code></td><td><span class="badge badge-all">Todos</span></td><td>Muestra la última actualización</td></tr>
+      </tbody></table>
+      <h2>🏛️ Administración</h2>
+      <table><thead><tr><th>Comando</th><th>Permiso</th><th>Descripción</th></tr></thead><tbody>
+        <tr><td><code>/dashboard-server</code></td><td><span class="badge badge-admin">Admin</span></td><td>Panel de control del servidor</td></tr>
+        <tr><td><code>/create-channel</code></td><td><span class="badge badge-admin">Admin</span></td><td>Crear un nuevo canal</td></tr>
+        <tr><td><code>/edit-channel</code></td><td><span class="badge badge-admin">Admin</span></td><td>Editar un canal existente</td></tr>
+        <tr><td><code>/delete-channel</code></td><td><span class="badge badge-admin">Admin</span></td><td>Eliminar un canal</td></tr>
+        <tr><td><code>/create-category</code></td><td><span class="badge badge-admin">Admin</span></td><td>Crear una categoría</td></tr>
+        <tr><td><code>/edit-category</code></td><td><span class="badge badge-admin">Admin</span></td><td>Editar una categoría</td></tr>
+        <tr><td><code>/delete-category</code></td><td><span class="badge badge-admin">Admin</span></td><td>Eliminar una categoría</td></tr>
+        <tr><td><code>/create-role</code></td><td><span class="badge badge-admin">Admin</span></td><td>Crear un rol</td></tr>
+        <tr><td><code>/edit-role</code></td><td><span class="badge badge-admin">Admin</span></td><td>Editar un rol</td></tr>
+        <tr><td><code>/delete-role</code></td><td><span class="badge badge-admin">Admin</span></td><td>Eliminar un rol</td></tr>
+        <tr><td><code>/create-event</code></td><td><span class="badge badge-admin">Admin</span></td><td>Crear un evento programado</td></tr>
+        <tr><td><code>/edit-event</code></td><td><span class="badge badge-admin">Admin</span></td><td>Editar un evento</td></tr>
+        <tr><td><code>/delete-event</code></td><td><span class="badge badge-admin">Admin</span></td><td>Cancelar un evento</td></tr>
+        <tr><td><code>/create-emoji</code></td><td><span class="badge badge-admin">Admin</span></td><td>Añadir un emoji</td></tr>
+        <tr><td><code>/create-sticker</code></td><td><span class="badge badge-admin">Admin</span></td><td>Añadir un sticker</td></tr>
+      </tbody></table>
+      <h2>⚙️ Configuración</h2>
+      <table><thead><tr><th>Comando</th><th>Descripción</th></tr></thead><tbody>
+        <tr><td><code>/set-welcome activar</code></td><td>Activa el sistema de bienvenida</td></tr>
+        <tr><td><code>/set-welcome desactivar</code></td><td>Desactiva la bienvenida</td></tr>
+        <tr><td><code>/set-welcome ver</code></td><td>Ver configuración actual</td></tr>
+        <tr><td><code>/set-goodbye activar</code></td><td>Activa el sistema de despedida</td></tr>
+        <tr><td><code>/set-goodbye desactivar</code></td><td>Desactiva la despedida</td></tr>
+        <tr><td><code>/set-goodbye ver</code></td><td>Ver configuración actual</td></tr>
+        <tr><td><code>/set-logs</code></td><td>Configura el canal de logs</td></tr>
+      </tbody></table>
+      <h2>🛡️ Moderación</h2>
+      <table><thead><tr><th>Comando</th><th>Permiso</th><th>Descripción</th></tr></thead><tbody>
+        <tr><td><code>/ban</code></td><td><span class="badge badge-mod">Mod</span></td><td>Banear permanentemente a un usuario</td></tr>
+        <tr><td><code>/unban</code></td><td><span class="badge badge-mod">Mod</span></td><td>Desbanear por ID</td></tr>
+        <tr><td><code>/kick</code></td><td><span class="badge badge-mod">Mod</span></td><td>Expulsar a un usuario</td></tr>
+        <tr><td><code>/warn</code></td><td><span class="badge badge-mod">Mod</span></td><td>Advertir formalmente</td></tr>
+        <tr><td><code>/timeout</code></td><td><span class="badge badge-mod">Mod</span></td><td>Silenciar temporalmente</td></tr>
+        <tr><td><code>/unmute</code></td><td><span class="badge badge-mod">Mod</span></td><td>Quitar silencio</td></tr>
+        <tr><td><code>/lock</code></td><td><span class="badge badge-mod">Mod</span></td><td>Bloquear canal</td></tr>
+        <tr><td><code>/unlock</code></td><td><span class="badge badge-mod">Mod</span></td><td>Desbloquear canal</td></tr>
+        <tr><td><code>/slowmode</code></td><td><span class="badge badge-mod">Mod</span></td><td>Activar modo lento</td></tr>
+        <tr><td><code>/purge</code></td><td><span class="badge badge-mod">Mod</span></td><td>Borrar mensajes en masa</td></tr>
+        <tr><td><code>/purge-user</code></td><td><span class="badge badge-mod">Mod</span></td><td>Borrar mensajes de un usuario</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ═══ MODERACIÓN ═══ -->
+    <div class="page" id="p-moderacion">
+      <h1>🛡️ Moderación y Logs</h1>
+      <h2>Sistema de Moderación</h2>
+      <p>Caatffee incluye un sistema completo de moderación con registro de todas las acciones.</p>
+      <h2>/ban — Banear usuario</h2>
+      <pre><code>/ban usuario:@Usuario razón:Motivo del ban</code></pre>
+      <blockquote>⚠️ Solo puedes banear usuarios con un rol inferior al tuyo.</blockquote>
+      <h2>/unban — Desbanear</h2>
+      <pre><code>/unban id:123456789012345678</code></pre>
+      <h2>/kick — Expulsar</h2>
+      <pre><code>/kick usuario:@Usuario razón:Motivo</code></pre>
+      <h2>/warn — Advertir</h2>
+      <pre><code>/warn usuario:@Usuario razón:Motivo</code></pre>
+      <h2>/timeout — Silenciar temporalmente</h2>
+      <pre><code>/timeout usuario:@Usuario duración:10m razón:Flood</code></pre>
+      <p>Formatos válidos: <code>60s</code> · <code>10m</code> · <code>2h</code> · <code>1d</code></p>
+      <h2>/lock y /unlock — Bloquear canal</h2>
+      <pre><code>/lock razón:Pausa necesaria
+/unlock</code></pre>
+      <h2>/slowmode — Modo lento</h2>
+      <pre><code>/slowmode segundos:30</code></pre>
+      <h2>/purge — Borrar mensajes</h2>
+      <pre><code>/purge cantidad:50
+/purge-user usuario:@Usuario cantidad:20</code></pre>
+      <hr>
+      <h2>🔔 Sistema de Logs</h2>
+      <pre><code>/set-logs canal:#canal-de-logs</code></pre>
+      <h3>¿Qué se registra?</h3>
+      <table><thead><tr><th>Evento</th><th>Descripción</th></tr></thead><tbody>
+        <tr><td>🔨 Ban / Unban</td><td>Quién baneó a quién y por qué</td></tr>
+        <tr><td>👢 Kick</td><td>Expulsiones con razón</td></tr>
+        <tr><td>⚠️ Warn</td><td>Advertencias emitidas</td></tr>
+        <tr><td>🔇 Timeout</td><td>Silenciados y duración</td></tr>
+        <tr><td>🔒 Lock / Unlock</td><td>Canales bloqueados</td></tr>
+        <tr><td>📝 Mensajes eliminados</td><td>Contenido del mensaje borrado</td></tr>
+        <tr><td>📥 Miembro entró</td><td>Con info del usuario</td></tr>
+        <tr><td>📤 Miembro salió</td><td>Con roles que tenía</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ═══ BIENVENIDA ═══ -->
+    <div class="page" id="p-bienvenida">
+      <h1>🌸 Bienvenida y Despedida</h1>
+      <p>Caatffee envía automáticamente embeds cuando alguien entra o sale del servidor.</p>
+      <h2>🌸 Configurar Bienvenida</h2>
+      <h3>Activar</h3>
+      <pre><code>/set-welcome activar canal:#bienvenidas</code></pre>
+      <h3>Con todas las opciones</h3>
+      <pre><code>/set-welcome activar canal:#bienvenidas titulo:¡Nuevo miembro! mensaje:¡Bienvenido/a a {servidor}, {usuario}! 🎉 color:#ffb6c1</code></pre>
+      <h3>Desactivar / Ver config</h3>
+      <pre><code>/set-welcome desactivar
+/set-welcome ver</code></pre>
+      <h2>👋 Configurar Despedida</h2>
+      <pre><code>/set-goodbye activar canal:#despedidas mensaje:Hasta luego, {usuario}. ¡Te echaremos de menos! 👋</code></pre>
+      <hr>
+      <h2>📝 Variables Disponibles</h2>
+      <table><thead><tr><th>Variable</th><th>Se reemplaza por</th></tr></thead><tbody>
+        <tr><td><code>{usuario}</code></td><td>Mención del miembro en bienvenida, nombre en despedida</td></tr>
+        <tr><td><code>{servidor}</code></td><td>Nombre del servidor</td></tr>
+      </tbody></table>
+      <h2>🎨 Opciones del Embed</h2>
+      <table><thead><tr><th>Campo</th><th>Descripción</th><th>Obligatorio</th></tr></thead><tbody>
+        <tr><td><code>canal</code></td><td>Canal donde se envía el mensaje</td><td>✅ Sí</td></tr>
+        <tr><td><code>mensaje</code></td><td>Texto personalizado (soporta variables)</td><td>❌ No</td></tr>
+        <tr><td><code>titulo</code></td><td>Título del embed</td><td>❌ No</td></tr>
+        <tr><td><code>imagen</code></td><td>URL de imagen en el embed</td><td>❌ No</td></tr>
+        <tr><td><code>color</code></td><td>Color del borde en HEX</td><td>❌ No</td></tr>
+      </tbody></table>
+      <h2>🛠️ Solución de Problemas</h2>
+      <table><thead><tr><th>Problema</th><th>Solución</th></tr></thead><tbody>
+        <tr><td>No se envía el mensaje</td><td>Verifica con <code>/set-welcome ver</code></td></tr>
+        <tr><td>Sin permisos</td><td>Dale permisos de Enviar Mensajes e Insertar enlaces</td></tr>
+        <tr><td>Canal no aparece en la web</td><td>El bot no puede ver ese canal</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ═══ PANEL WEB ═══ -->
+    <div class="page" id="p-panel">
+      <h1>🌐 Panel Web</h1>
+      <p>Gestiona tu servidor desde el navegador en <a href="https://caatffee.github.io/Caatffee/" target="_blank">caatffee.github.io/Caatffee</a></p>
+      <h2>🔐 Iniciar Sesión</h2>
+      <ol>
+        <li>Haz clic en <strong>"Iniciar sesión"</strong> arriba a la derecha</li>
+        <li>Acepta los permisos de Discord (<code>identify</code> y <code>guilds</code>)</li>
+        <li>Serás redirigido de vuelta autenticado</li>
+      </ol>
+      <blockquote>⚠️ Solo pedimos permisos para ver tu perfil y servidores. Nunca accedemos a tus mensajes.</blockquote>
+      <h2>🖥️ Mis Servidores</h2>
+      <p>Haz clic en tu avatar → <strong>"Ver mis servidores"</strong>. Solo se muestran los servidores donde eres dueño o administrador.</p>
+      <h2>📨 Enviar Mensaje</h2>
+      <ol>
+        <li>Selecciona <strong>📨 Enviar Mensaje</strong> en el menú lateral</li>
+        <li>Elige el canal de destino</li>
+        <li>Escribe el mensaje y elige el color</li>
+        <li>Haz clic en <strong>"Enviar con Caatffee"</strong></li>
+      </ol>
+      <h2>🌸 Bienvenida / 👋 Despedida desde la Web</h2>
+      <p>Selecciona la sección correspondiente en el menú lateral del panel de servidor, configura los campos y haz clic en <strong>✅ Activar</strong>.</p>
+      <h2>🛠️ Solución de Problemas</h2>
+      <table><thead><tr><th>Problema</th><th>Solución</th></tr></thead><tbody>
+        <tr><td>"Bot no disponible"</td><td>El bot está offline, espera unos minutos</td></tr>
+        <tr><td>"No eres miembro"</td><td>Token expirado — cierra sesión y vuelve a entrar</td></tr>
+        <tr><td>Canal no aparece</td><td>El bot no tiene acceso a ese canal</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ═══ PREMIUM ═══ -->
+    <div class="page" id="p-premium">
+      <h1>⭐ Sistema Premium</h1>
+      <blockquote>Las funciones principales del bot son siempre gratuitas. El premium solo añade extras.</blockquote>
+      <h2>💰 Planes</h2>
+      <table><thead><tr><th>Plan</th><th>Precio</th><th>Badge</th></tr></thead><tbody>
+        <tr><td>☕ Básico</td><td>$3.99/mes</td><td>⭐</td></tr>
+        <tr><td>🌸 Intermedio</td><td>$5.00/mes</td><td>💠</td></tr>
+        <tr><td>⚡ Avanzado</td><td>$10.00/mes</td><td>🔮</td></tr>
+        <tr><td>🔥 Ultra</td><td>$15.00/mes</td><td>🔥</td></tr>
+      </tbody></table>
+      <p><a href="https://www.patreon.com/15613390/join" target="_blank">Ver planes completos en Patreon →</a></p>
+      <h2>🎁 Beneficios por Plan</h2>
+      <h3>☕ Básico ($3.99)</h3>
+      <ul>
+        <li>Rol exclusivo Barista Donador Básico + Premium</li>
+        <li>Estadísticas avanzadas básicas</li>
+        <li>Prioridad ligera en soporte</li>
+        <li>Canal exclusivo de sugerencias</li>
+      </ul>
+      <h3>🌸 Intermedio ($5.00)</h3>
+      <ul>
+        <li>Todo lo del plan Básico</li>
+        <li>Más opciones en el dashboard</li>
+        <li>Personalizar nombre del panel</li>
+        <li>Plantillas exclusivas y logs avanzados</li>
+      </ul>
+      <h3>⚡ Avanzado ($10.00)</h3>
+      <ul>
+        <li>Todo lo del plan Intermedio</li>
+        <li>Comandos exclusivos avanzados</li>
+        <li>Personalización del panel</li>
+        <li>Plantillas premium</li>
+      </ul>
+      <h3>🔥 Ultra ($15.00)</h3>
+      <ul>
+        <li>Todo lo del plan Avanzado</li>
+        <li>Badge ULTRA visible en el panel</li>
+        <li>Tu servidor recomendado en la web</li>
+        <li>Acceso temprano a nuevas funciones</li>
+        <li>Soporte prioritario real</li>
+      </ul>
+    </div>
+
+    <!-- ═══ FAQ ═══ -->
+    <div class="page" id="p-faq">
+      <h1>❓ Preguntas Frecuentes</h1>
+      <h2>¿Caatffee es gratuito?</h2>
+      <p>Sí. Caatffee es completamente gratuito. Las donaciones son voluntarias y solo otorgan beneficios extras.</p>
+      <h2>¿Cómo añado el bot?</h2>
+      <p>Haz clic en <a href="https://discord.com/oauth2/authorize?client_id=1475842620063485993&permissions=8&scope=bot%20applications.commands" target="_blank">este enlace</a> y selecciona tu servidor. Necesitas ser administrador.</p>
+      <h2>¿El bot recopila mis mensajes?</h2>
+      <p>No. Solo guardamos IDs de servidor, canales y usuarios necesarios para el funcionamiento. Nunca almacenamos mensajes privados.</p>
+      <h2>¿Por qué pide permiso de administrador?</h2>
+      <p>Para que los comandos de gestión funcionen correctamente. Nunca usamos esos permisos fuera de lo que tú ordenas.</p>
+      <h2>Un comando no responde, ¿qué hago?</h2>
+      <ol>
+        <li>Verifica que el bot tenga permisos en ese canal</li>
+        <li>Asegúrate de que el bot esté online</li>
+        <li>Reporta el error en <a href="https://caatffee.github.io/Caatffee/#report" target="_blank">esta sección</a></li>
+      </ol>
+      <h2>¿Cómo elimino mis datos?</h2>
+      <p>Expulsa al bot — los datos se eliminan automáticamente. También puedes solicitarlo en el <a href="https://discord.gg/ecjgjx7yPd" target="_blank">servidor de soporte</a>.</p>
+      <h2>¿Con qué frecuencia se actualiza?</h2>
+      <p>Constantemente. Revisa el <a href="#" onclick="showPage('p-changelog')">Changelog</a> para ver las últimas novedades.</p>
+    </div>
+
+    <!-- ═══ CHANGELOG ═══ -->
+    <div class="page" id="p-changelog">
+      <h1>📋 Changelog</h1>
+      <h2>v2.0 — Marzo 2026</h2>
+      <h3>🆕 Nuevas Funciones</h3>
+      <ul>
+        <li><strong>Panel Web</strong> — Gestiona tu servidor desde <a href="https://caatffee.github.io/Caatffee/" target="_blank">caatffee.github.io/Caatffee</a></li>
+        <li><strong>Bienvenida y Despedida</strong> — Sistema completo con embeds personalizables</li>
+        <li><strong>API HTTP</strong> — Conexión segura entre la web y el bot con HTTPS</li>
+        <li><strong>OAuth2 Discord</strong> — Inicio de sesión real con Discord en la web</li>
+      </ul>
+      <h3>⚡ Mejoras</h3>
+      <ul>
+        <li>Sistema de logs mejorado con más eventos</li>
+        <li>Panel web renovado con diseño sidebar</li>
+        <li>Carga dinámica de canales reales del servidor</li>
+      </ul>
+      <hr>
+      <h2>v1.1 — Marzo 2026</h2>
+      <h3>🆕 Nuevas Funciones</h3>
+      <ul>
+        <li>Sistema de logs avanzados (<code>/set-logs</code>)</li>
+        <li>Personalización del nombre del panel para donadores Intermedios+</li>
+      </ul>
+      <h3>🛠️ Fixes</h3>
+      <ul>
+        <li>Corrección de errores en <code>/ban</code>, <code>/warn</code> y <code>/lock</code></li>
+        <li>Mejoras de estabilidad general</li>
+      </ul>
+      <hr>
+      <h2>v1.0 — Enero 2026</h2>
+      <h3>🎉 Lanzamiento Inicial</h3>
+      <ul>
+        <li>Comandos de administración: canales, categorías, roles, eventos</li>
+        <li>Comandos de moderación: ban, kick, warn, timeout, lock, purge</li>
+        <li>Sistema premium con 4 niveles</li>
+        <li>Panel por MD (<code>/dashboard-server</code>)</li>
+      </ul>
+    </div>
+
+    <!-- ═══ EN: HOME ═══ -->
+    <div class="page" id="p-en-home">
+      <h1>☕ Welcome to Caatffee Docs</h1>
+      <blockquote>The most adorable management bot for your Discord server.</blockquote>
+      <p>➕ <a href="https://discord.com/oauth2/authorize?client_id=1475842620063485993&permissions=8&scope=bot%20applications.commands" target="_blank">Add Bot</a> · 💬 <a href="https://discord.gg/ecjgjx7yPd" target="_blank">Support</a> · 🌐 <a href="https://caatffee.github.io/Caatffee/" target="_blank">Website</a></p>
+      <hr>
+      <h2>📚 Index</h2>
+      <table><thead><tr><th>Page</th><th>Description</th></tr></thead><tbody>
+        <tr><td><a href="#" onclick="showPage('p-en-start')">🚀 Getting Started</a></td><td>How to add and configure Caatffee</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-en-commands')">🤖 Commands</a></td><td>Full command list with examples</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-en-mod')">🛡️ Moderation</a></td><td>Moderation system and logs</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-en-welcome')">🌸 Welcome & Goodbye</a></td><td>Set up automatic messages</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-en-panel')">🌐 Web Panel</a></td><td>Manage your server from the website</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-en-premium')">⭐ Premium System</a></td><td>Plans and benefits</td></tr>
+        <tr><td><a href="#" onclick="showPage('p-en-faq')">❓ FAQ</a></td><td>Frequently asked questions</td></tr>
+      </tbody></table>
+      <hr>
+      <h2>⚡ Quick Start</h2>
+      <pre><code>1. Add the bot to your server using the link above
+2. Type /help in any channel
+3. Done! Caatffee is ready to go</code></pre>
+    </div>
+
+    <!-- ═══ EN: GETTING STARTED ═══ -->
+    <div class="page" id="p-en-start">
+      <h1>🚀 Getting Started</h1>
+      <h2>1. Add the Bot</h2>
+      <p>➕ <a href="https://discord.com/oauth2/authorize?client_id=1475842620063485993&permissions=8&scope=bot%20applications.commands" target="_blank">Add Caatffee to your server</a></p>
+      <blockquote>⚠️ You must be a <strong>server administrator</strong> to add the bot.</blockquote>
+      <h2>2. First Command</h2>
+      <pre><code>/help</code></pre>
+      <h2>3. Basic Setup</h2>
+      <pre><code># Set up logs
+/set-logs canal:#log-channel
+
+# Set up welcome
+/set-welcome activar canal:#welcome mensaje:Welcome to {servidor}, {usuario}!
+
+# Set up goodbye
+/set-goodbye activar canal:#goodbye mensaje:Goodbye, {usuario} 👋</code></pre>
+    </div>
+
+    <!-- ═══ EN: COMMANDS ═══ -->
+    <div class="page" id="p-en-commands">
+      <h1>🤖 Commands</h1>
+      <p><span class="badge badge-all">🟢 Everyone</span> Any member · <span class="badge badge-admin">🟡 Admin</span> Administrator · <span class="badge badge-mod">🔴 Mod</span> Moderator</p>
+      <h2>🛠️ Utility</h2>
+      <table><thead><tr><th>Command</th><th>Permission</th><th>Description</th></tr></thead><tbody>
+        <tr><td><code>/help</code></td><td><span class="badge badge-all">Everyone</span></td><td>Shows the bot guide</td></tr>
+        <tr><td><code>/update</code></td><td><span class="badge badge-all">Everyone</span></td><td>Shows the latest update</td></tr>
+      </tbody></table>
+      <h2>🛡️ Moderation</h2>
+      <table><thead><tr><th>Command</th><th>Permission</th><th>Description</th></tr></thead><tbody>
+        <tr><td><code>/ban</code></td><td><span class="badge badge-mod">Mod</span></td><td>Permanently ban a user</td></tr>
+        <tr><td><code>/unban</code></td><td><span class="badge badge-mod">Mod</span></td><td>Unban a user by ID</td></tr>
+        <tr><td><code>/kick</code></td><td><span class="badge badge-mod">Mod</span></td><td>Kick a user</td></tr>
+        <tr><td><code>/warn</code></td><td><span class="badge badge-mod">Mod</span></td><td>Warn a user</td></tr>
+        <tr><td><code>/timeout</code></td><td><span class="badge badge-mod">Mod</span></td><td>Temporarily mute a user</td></tr>
+        <tr><td><code>/unmute</code></td><td><span class="badge badge-mod">Mod</span></td><td>Remove timeout</td></tr>
+        <tr><td><code>/lock</code></td><td><span class="badge badge-mod">Mod</span></td><td>Lock channel</td></tr>
+        <tr><td><code>/unlock</code></td><td><span class="badge badge-mod">Mod</span></td><td>Unlock channel</td></tr>
+        <tr><td><code>/slowmode</code></td><td><span class="badge badge-mod">Mod</span></td><td>Set slow mode</td></tr>
+        <tr><td><code>/purge</code></td><td><span class="badge badge-mod">Mod</span></td><td>Delete messages in bulk</td></tr>
+        <tr><td><code>/purge-user</code></td><td><span class="badge badge-mod">Mod</span></td><td>Delete a user's messages</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ═══ EN: MODERATION ═══ -->
+    <div class="page" id="p-en-mod">
+      <h1>🛡️ Moderation & Logs</h1>
+      <h2>/ban — Ban a user</h2>
+      <pre><code>/ban user:@User reason:Reason for ban</code></pre>
+      <h2>/timeout — Temporarily mute</h2>
+      <pre><code>/timeout user:@User duration:10m reason:Flooding</code></pre>
+      <p>Valid formats: <code>60s</code> · <code>10m</code> · <code>2h</code> · <code>1d</code></p>
+      <h2>/purge — Delete messages</h2>
+      <pre><code>/purge amount:50
+/purge-user user:@User amount:20</code></pre>
+      <h2>🔔 Log System</h2>
+      <pre><code>/set-logs channel:#log-channel</code></pre>
+      <table><thead><tr><th>Event</th><th>Description</th></tr></thead><tbody>
+        <tr><td>🔨 Ban / Unban</td><td>Who banned whom and why</td></tr>
+        <tr><td>👢 Kick</td><td>Kicks with reason</td></tr>
+        <tr><td>⚠️ Warn</td><td>Warnings issued</td></tr>
+        <tr><td>🔇 Timeout</td><td>Muted users and duration</td></tr>
+        <tr><td>📝 Deleted messages</td><td>Content of deleted message</td></tr>
+        <tr><td>📥 Member joined</td><td>With user info</td></tr>
+        <tr><td>📤 Member left</td><td>With roles they had</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ═══ EN: WELCOME ═══ -->
+    <div class="page" id="p-en-welcome">
+      <h1>🌸 Welcome & Goodbye</h1>
+      <h2>Setting Up Welcome</h2>
+      <pre><code>/set-welcome activar channel:#welcome
+/set-welcome activar channel:#welcome title:New member! message:Welcome to {servidor}, {usuario}! 🎉</code></pre>
+      <h2>Setting Up Goodbye</h2>
+      <pre><code>/set-goodbye activar channel:#goodbye message:Goodbye, {usuario}. We'll miss you! 👋</code></pre>
+      <h2>📝 Available Variables</h2>
+      <table><thead><tr><th>Variable</th><th>Replaced with</th></tr></thead><tbody>
+        <tr><td><code>{usuario}</code></td><td>Member mention in welcome, username in goodbye</td></tr>
+        <tr><td><code>{servidor}</code></td><td>Server name</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ═══ EN: WEB PANEL ═══ -->
+    <div class="page" id="p-en-panel">
+      <h1>🌐 Web Panel</h1>
+      <p>Manage your server from <a href="https://caatffee.github.io/Caatffee/" target="_blank">caatffee.github.io/Caatffee</a></p>
+      <h2>Signing In</h2>
+      <ol>
+        <li>Click <strong>"Iniciar sesión"</strong> in the top right</li>
+        <li>Accept Discord permissions</li>
+        <li>You'll be redirected back, authenticated</li>
+      </ol>
+      <h2>Features</h2>
+      <ul>
+        <li>📨 Send embeds to any channel</li>
+        <li>🌸 Configure welcome messages</li>
+        <li>👋 Configure goodbye messages</li>
+      </ul>
+    </div>
+
+    <!-- ═══ EN: PREMIUM ═══ -->
+    <div class="page" id="p-en-premium">
+      <h1>⭐ Premium System</h1>
+      <blockquote>Core features are always free. Premium only adds extras.</blockquote>
+      <table><thead><tr><th>Plan</th><th>Price</th></tr></thead><tbody>
+        <tr><td>☕ Basic</td><td>$3.99/mo</td></tr>
+        <tr><td>🌸 Intermediate</td><td>$5.00/mo</td></tr>
+        <tr><td>⚡ Advanced</td><td>$10.00/mo</td></tr>
+        <tr><td>🔥 Ultra</td><td>$15.00/mo</td></tr>
+      </tbody></table>
+      <p><a href="https://www.patreon.com/15613390/join" target="_blank">See full plans on Patreon →</a></p>
+    </div>
+
+    <!-- ═══ EN: FAQ ═══ -->
+    <div class="page" id="p-en-faq">
+      <h1>❓ FAQ</h1>
+      <h2>Is Caatffee free?</h2>
+      <p>Yes. Caatffee is completely free. Donations are voluntary and only grant extra benefits.</p>
+      <h2>How do I add the bot?</h2>
+      <p><a href="https://discord.com/oauth2/authorize?client_id=1475842620063485993&permissions=8&scope=bot%20applications.commands" target="_blank">Click this link</a> and select your server. You need to be an administrator.</p>
+      <h2>Does the bot collect my messages?</h2>
+      <p>No. We only store IDs needed for functionality. We never store private message content.</p>
+      <h2>A command isn't responding?</h2>
+      <ol>
+        <li>Check the bot has permissions in that channel</li>
+        <li>Make sure the bot is online</li>
+        <li>Report the error at <a href="https://caatffee.github.io/Caatffee/#report" target="_blank">our website</a></li>
+      </ol>
+    </div>
+
+  </div>
+</div>
+
+<button id="menu-btn" onclick="toggleSidebar()">☰</button>
+
+<script>
+const navES = [
+  {section:'🌍 Español'},
+  {id:'p-inicio',label:'🏠 Inicio'},
+  {id:'p-guia',label:'🚀 Guía de Inicio'},
+  {id:'p-comandos',label:'🤖 Comandos'},
+  {id:'p-moderacion',label:'🛡️ Moderación'},
+  {id:'p-bienvenida',label:'🌸 Bienvenida y Despedida'},
+  {id:'p-panel',label:'🌐 Panel Web'},
+  {id:'p-premium',label:'⭐ Sistema Premium'},
+  {id:'p-faq',label:'❓ FAQ'},
+  {id:'p-changelog',label:'📋 Changelog'},
+];
+const navEN = [
+  {section:'🌍 English'},
+  {id:'p-en-home',label:'🏠 Home'},
+  {id:'p-en-start',label:'🚀 Getting Started'},
+  {id:'p-en-commands',label:'🤖 Commands'},
+  {id:'p-en-mod',label:'🛡️ Moderation'},
+  {id:'p-en-welcome',label:'🌸 Welcome & Goodbye'},
+  {id:'p-en-panel',label:'🌐 Web Panel'},
+  {id:'p-en-premium',label:'⭐ Premium System'},
+  {id:'p-en-faq',label:'❓ FAQ'},
+];
+
+let currentLang = 'es';
+
+function buildNav(lang) {
+  const nav = document.getElementById('nav');
+  const items = lang === 'es' ? navES : navEN;
+  nav.innerHTML = '';
+  items.forEach(item => {
+    if (item.section) {
+      const s = document.createElement('div');
+      s.className = 'nav-section';
+      s.textContent = item.section;
+      nav.appendChild(s);
+    } else {
+      const a = document.createElement('div');
+      a.className = 'nav-item';
+      a.textContent = item.label;
+      a.dataset.id = item.id;
+      a.onclick = () => showPage(item.id);
+      nav.appendChild(a);
     }
-  </script>
+  });
+}
 
-  <!-- Docsify core -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-  <!-- Plugins -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
-  <!-- Syntax highlighting -->
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById(id);
+  if (page) page.classList.add('active');
+  const navItem = document.querySelector(`.nav-item[data-id="${id}"]`);
+  if (navItem) navItem.classList.add('active');
+  document.getElementById('content').scrollTo({top:0,behavior:'smooth'});
+  // Close sidebar on mobile
+  if (window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+  }
+  return false;
+}
+
+function setLang(lang, btn) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildNav(lang);
+  const firstPage = lang === 'es' ? 'p-inicio' : 'p-en-home';
+  showPage(firstPage);
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// Search
+const searchIndex = [
+  {id:'p-inicio',title:'Inicio',keywords:'inicio bienvenida caatffee bot discord'},
+  {id:'p-guia',title:'Guía de Inicio',keywords:'añadir instalar configurar permisos setup'},
+  {id:'p-comandos',title:'Comandos',keywords:'slash comandos lista help update ban kick warn'},
+  {id:'p-moderacion',title:'Moderación',keywords:'ban kick warn timeout lock purge logs moderacion'},
+  {id:'p-bienvenida',title:'Bienvenida y Despedida',keywords:'bienvenida despedida welcome goodbye mensaje automatico'},
+  {id:'p-panel',title:'Panel Web',keywords:'panel web dashboard servidor gestionar'},
+  {id:'p-premium',title:'Sistema Premium',keywords:'premium donacion patreon beneficios planes'},
+  {id:'p-faq',title:'FAQ',keywords:'preguntas frecuentes ayuda problema'},
+  {id:'p-changelog',title:'Changelog',keywords:'actualizacion version historial cambios'},
+  {id:'p-en-home',title:'Home (EN)',keywords:'home welcome caatffee bot discord'},
+  {id:'p-en-start',title:'Getting Started (EN)',keywords:'add install setup permissions'},
+  {id:'p-en-commands',title:'Commands (EN)',keywords:'commands list ban kick warn'},
+  {id:'p-en-mod',title:'Moderation (EN)',keywords:'ban kick warn timeout lock purge logs'},
+  {id:'p-en-welcome',title:'Welcome & Goodbye (EN)',keywords:'welcome goodbye message automatic'},
+];
+
+function searchDocs(q) {
+  const results = document.getElementById('search-results');
+  if (!q.trim()) { results.style.display = 'none'; return; }
+  const matches = searchIndex.filter(item =>
+    item.title.toLowerCase().includes(q.toLowerCase()) ||
+    item.keywords.toLowerCase().includes(q.toLowerCase())
+  );
+  if (!matches.length) { results.style.display = 'none'; return; }
+  results.innerHTML = matches.slice(0,5).map(m =>
+    `<div class="search-result" onclick="showPage('${m.id}');document.getElementById('search').value='';document.getElementById('search-results').style.display='none'">
+      ${m.title}
+    </div>`
+  ).join('');
+  results.style.display = 'block';
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#search-wrap')) {
+    document.getElementById('search-results').style.display = 'none';
+  }
+});
+
+// Init
+buildNav('es');
+document.querySelector('.nav-item[data-id="p-inicio"]').classList.add('active');
+</script>
 </body>
 </html>
